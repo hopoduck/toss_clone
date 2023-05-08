@@ -58,6 +58,7 @@ class _NavBarState extends State<NavBar> {
             text: "주식",
             onPressed: () {
               late String name;
+              // TODO: name이 널 나옴..
               navigatorKey.currentState!.popUntil((route) {
                 name = route.settings.name!;
                 return true;

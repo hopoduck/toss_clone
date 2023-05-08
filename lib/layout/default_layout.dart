@@ -5,6 +5,28 @@ import 'package:toss_clone/widget/nav_bar.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
+Route _createRoute(Widget page) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => page,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(0.0, 1.0);
+      const end = Offset.zero;
+      const curve = Curves.ease;
+
+      final tween = Tween(begin: begin, end: end);
+      final curvedAnimation = CurvedAnimation(
+        parent: animation,
+        curve: curve,
+      );
+
+      return SlideTransition(
+        position: tween.animate(curvedAnimation),
+        child: child,
+      );
+    },
+  );
+}
+
 class DefaultLayout extends StatelessWidget {
   const DefaultLayout({super.key});
 
@@ -39,34 +61,22 @@ class DefaultLayout extends StatelessWidget {
               page = const Home();
           }
 
-          return MaterialPageRoute(
-            builder: (context) {
-              return SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                child: Stack(
-                  children: [
-                    page,
-                  ],
-                ),
-              );
-            },
-            settings: settings,
-          );
+          return _createRoute(page);
+          // return MaterialPageRoute(
+          //   builder: (context) {
+          //     return SizedBox(
+          //       width: MediaQuery.of(context).size.width,
+          //       height: MediaQuery.of(context).size.height,
+          //       child: Stack(
+          //         children: [
+          //           page,
+          //         ],
+          //       ),
+          //     );
+          //   },
+          //   settings: settings,
+          // );
         },
-        // child: SizedBox(
-        //   width: MediaQuery.of(context).size.width,
-        //   height: MediaQuery.of(context).size.height,
-        //   child: Stack(
-        //     children: [
-        //       child,
-        //       const Positioned(
-        //         bottom: 0,
-        //         child: NavBar(),
-        //       )
-        //     ],
-        //   ),
-        // ),
       ),
     );
   }
