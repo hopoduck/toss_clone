@@ -11,10 +11,19 @@ class NavBar extends StatefulWidget {
 }
 
 class _NavBarState extends State<NavBar> {
+  String? _getCurrentRouteName() {
+    late String? name;
+    navigatorKey.currentState!.popUntil((route) {
+      name = route.settings.name;
+      return true;
+    });
+
+    return name;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      // margin: const EdgeInsets.symmetric(horizontal: 15),
       decoration: BoxDecoration(
         color: const Color(0xff404040),
         border: Border.all(
@@ -33,11 +42,7 @@ class _NavBarState extends State<NavBar> {
             icon: const Icon(Icons.home),
             text: "홈",
             onPressed: () {
-              late String name;
-              navigatorKey.currentState!.popUntil((route) {
-                name = route.settings.name!;
-                return true;
-              });
+              String? name = _getCurrentRouteName();
               if (name != '/') {
                 navigatorKey.currentState!.pushReplacementNamed("/");
               }
@@ -57,12 +62,7 @@ class _NavBarState extends State<NavBar> {
             icon: const Icon(Icons.query_stats),
             text: "주식",
             onPressed: () {
-              late String name;
-              // TODO: name이 널 나옴..
-              navigatorKey.currentState!.popUntil((route) {
-                name = route.settings.name!;
-                return true;
-              });
+              String? name = _getCurrentRouteName();
               if (name != '/stock') {
                 navigatorKey.currentState!.pushReplacementNamed("/stock");
               }

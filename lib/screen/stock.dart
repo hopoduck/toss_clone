@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toss_clone/widget/ink_button.dart';
 import 'package:toss_clone/widget/rolling_item.dart';
 
 class Stock extends StatefulWidget {
@@ -33,12 +34,12 @@ class _StockState extends State<Stock> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
       padding: const EdgeInsets.fromLTRB(0, 15, 0, 15 + 80),
+      decoration: const BoxDecoration(
+        backgroundBlendMode: BlendMode.color,
+        color: Color(0xff303030),
+      ),
       child: Column(
-        // physics: const BouncingScrollPhysics(),
-        // controller: _scrollController,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -205,14 +206,13 @@ class _StockState extends State<Stock> with TickerProviderStateMixin {
                     ),
                     divider(),
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                        // horizontal: 30,
-                        vertical: 40,
+                      padding: const EdgeInsets.only(
+                        top: 40,
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Padding(
+                        children: [
+                          const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 30),
                             child: Text(
                               "관심 주식",
@@ -222,135 +222,154 @@ class _StockState extends State<Stock> with TickerProviderStateMixin {
                               ),
                             ),
                           ),
-                          SizedBox(height: 15),
-                          Padding(
+                          const SizedBox(height: 15),
+                          const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 30),
                             child: Text("추가한 주식의 소식을 빠르게 알려드려요"),
                           ),
-                          SizedBox(height: 30),
-                          StockItem(),
-                          StockItem(),
-                          StockItem(),
-                          StockItem(),
+                          const SizedBox(height: 30),
+                          const StockItem(),
+                          const StockItem(),
+                          const StockItem(),
+                          const StockItem(),
+                          const StockItem(),
+                          const SizedBox(height: 15),
+                          const Divider(height: 1),
+                          SizedBox(
+                            width: double.infinity,
+                            child: MaterialButton(
+                              onPressed: () {},
+                              padding: const EdgeInsets.all(25),
+                              child: const Text("다른 주식 보기"),
+                            ),
+                          )
                         ],
                       ),
                     ),
                     divider(),
                   ],
                 ),
-                const SizedBox(
-                  height: 600,
-                  child: Text("hi"),
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(30),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: InkButton(
+                              onTap: () {},
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 25,
+                                vertical: 30,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.15),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const Text(
+                                    "🇰🇷",
+                                    style: TextStyle(fontSize: 30),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          const Text("국내"),
+                                          Icon(
+                                            Icons.chevron_right,
+                                            color:
+                                                Colors.white.withOpacity(0.6),
+                                          ),
+                                        ],
+                                      ),
+                                      Text(
+                                        "8시간 후",
+                                        style: TextStyle(
+                                          color: Colors.white.withOpacity(0.6),
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 20),
+                          Expanded(
+                            child: InkButton(
+                              onTap: () {},
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 25,
+                                vertical: 30,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.15),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const Text(
+                                    "🇺🇸",
+                                    style: TextStyle(fontSize: 30),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          const Text("국내"),
+                                          Icon(
+                                            Icons.chevron_right,
+                                            color:
+                                                Colors.white.withOpacity(0.6),
+                                          ),
+                                        ],
+                                      ),
+                                      Text(
+                                        "장열림",
+                                        style: TextStyle(
+                                          color: Colors.blue.shade400,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
                 ),
               ],
             ),
-          )
-          // // TossBank(),
-          // const ItemMenu(title: '토스 뱅크'),
-          // const SizedBox(height: 20),
-          // ItemMenu(
-          //   title: "자산",
-          //   children: [
-          //     Item(
-          //       icon: const Icon(
-          //         Icons.payment,
-          //         color: Colors.white,
-          //       ),
-          //       title: makeTitle(
-          //         upperText: "보통 예금(신IBK급여통장)",
-          //         lowerText: "잔액 보기",
-          //       ),
-          //       rightWidget: makeRightButton("송금"),
-          //     ),
-          //     Item(
-          //       icon: const Icon(
-          //         Icons.payment,
-          //         color: Colors.white,
-          //       ),
-          //       title: makeTitle(
-          //         upperText: "보통 예금(신IBK급여통장)",
-          //         lowerText: "잔액 보기",
-          //       ),
-          //       rightWidget: makeRightButton("송금"),
-          //     ),
-          //     Item(
-          //       icon: const Icon(
-          //         Icons.payment,
-          //         color: Colors.white,
-          //       ),
-          //       title: makeTitle(
-          //         upperText: "보통 예금(신IBK급여통장)",
-          //         lowerText: "잔액 보기",
-          //       ),
-          //       rightWidget: makeRightButton("송금"),
-          //     ),
-          //   ],
-          // ),
-          // const SizedBox(height: 20),
-          // const ItemMenu(
-          //   title: "투자",
-          // ),
-          // const SizedBox(height: 20),
-          // SizedBox(
-          //   width: double.infinity,
-          //   height: 200,
-          //   child: ScrollConfiguration(
-          //     behavior: ScrollConfiguration.of(context).copyWith(
-          //       dragDevices: {
-          //         PointerDeviceKind.mouse,
-          //         PointerDeviceKind.touch,
-          //       },
-          //       scrollbars: true,
-          //     ),
-          //     child: ListView.separated(
-          //       scrollDirection: Axis.horizontal,
-          //       itemCount: 100,
-          //       itemBuilder: (context, index) => HomeCard(
-          //         icon: Icon(
-          //           FontAwesomeIcons.sackDollar,
-          //           color: Colors.yellow.shade600,
-          //           size: 48,
-          //         ),
-          //         upperText: "59개 금융사",
-          //         lowerText: "대출 상품 보기",
-          //       ),
-          //       separatorBuilder: (context, index) =>
-          //           const SizedBox(width: 20),
-          //     ),
-          //   ),
-          // ),
-          // Row(
-          //   mainAxisSize: MainAxisSize.min,
-          //   children: const [
-          //     Text("Hi"),
-          //     Text("Hi"),
-          //     Text("Hi"),
-          //     Item(icon: Icon(Icons.settings), title: Text("hi")),
-          //     // Item(icon: Icon(Icons.settings), title: Text("hi"))
-          //   ],
-          // )
-          // SizedBox(height: 20),
-          // MyMoney(),
-          // SizedBox(height: 20),
-          // MyMoney(),
-          // SizedBox(height: 20),
-          // MyMoney(),
-          // SizedBox(height: 20),
-          // MyMoney(),
-          // SizedBox(height: 20),
-          // MyMoney(),
-          // SizedBox(height: 20),
-          // MyMoney(),
-          // SizedBox(height: 20),
-          // MyMoney(),
-          // SizedBox(height: 20),
-          // MyMoney(),
+          ),
         ],
       ),
     );
   }
 
-  Container divider() {
+  Widget divider() {
     return Container(
       width: double.infinity,
       height: 20,
@@ -358,49 +377,22 @@ class _StockState extends State<Stock> with TickerProviderStateMixin {
     );
   }
 
-  InkWell makeRightButton(String text) {
-    return InkWell(
+  Widget makeRightButton(String text) {
+    return InkButton(
       onTap: () {},
-      borderRadius: const BorderRadius.all(
-        Radius.circular(10),
-      ),
-      child: Ink(
-        padding: const EdgeInsets.all((40 - 12) / 2),
-        decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.2),
-          borderRadius: const BorderRadius.all(
-            Radius.circular(10),
-          ),
-        ),
-        child: Text(
-          text,
-          style: const TextStyle(
-            fontSize: 12,
-          ),
+      padding: const EdgeInsets.all((40 - 12) / 2),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.2),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(10),
         ),
       ),
-    );
-  }
-
-  Column makeTitle({required String upperText, required String lowerText}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          upperText,
-          style: TextStyle(
-            fontSize: 12,
-            color: Colors.white.withOpacity(0.6),
-          ),
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 12,
         ),
-        const SizedBox(height: 5),
-        Text(
-          lowerText,
-          style: const TextStyle(
-            fontSize: 16,
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
@@ -417,68 +409,61 @@ class StockItem extends StatefulWidget {
 class _StockItemState extends State<StockItem> {
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return InkButton(
       onTap: () {},
-      child: Container(
-        padding: const EdgeInsets.symmetric(
-          vertical: 10,
-          horizontal: 30,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                const CircleAvatar(
-                  radius: 20,
-                  backgroundColor: Colors.blue,
-                ),
-                const SizedBox(width: 15),
-                SizedBox(
-                  height: 40,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "삼성전자",
-                        style: TextStyle(
-                          color: Colors.white.withOpacity(0.8),
-                          fontSize: 16,
-                        ),
+      padding: const EdgeInsets.symmetric(
+        vertical: 10,
+        horizontal: 30,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              const CircleAvatar(
+                radius: 20,
+                backgroundColor: Colors.blue,
+              ),
+              const SizedBox(width: 15),
+              SizedBox(
+                height: 40,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "삼성전자",
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(0.8),
+                        fontSize: 16,
                       ),
-                      Text(
-                        "2,964,685명 추가",
-                        style: TextStyle(
-                          color: Colors.white.withOpacity(0.8),
-                        ),
+                    ),
+                    Text(
+                      "2,964,685명 추가",
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(0.8),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
+            ],
+          ),
+          InkButton(
+            onTap: () {},
+            padding: const EdgeInsets.symmetric(
+              vertical: 10,
+              horizontal: 15,
             ),
-            InkWell(
-              onTap: () {},
-              borderRadius: const BorderRadius.all(
+            decoration: const BoxDecoration(
+              color: Color(0xff404040),
+              borderRadius: BorderRadius.all(
                 Radius.circular(5),
               ),
-              child: Ink(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 10,
-                  horizontal: 15,
-                ),
-                decoration: const BoxDecoration(
-                  color: Color(0xff404040),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(5),
-                  ),
-                ),
-                child: const Text("추가"),
-              ),
-            )
-          ],
-        ),
+            ),
+            child: const Text("추가"),
+          )
+        ],
       ),
     );
   }

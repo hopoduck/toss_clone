@@ -5,28 +5,6 @@ import 'package:toss_clone/widget/nav_bar.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
-Route _createRoute(Widget page) {
-  return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => page,
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      const begin = Offset(0.0, 1.0);
-      const end = Offset.zero;
-      const curve = Curves.ease;
-
-      final tween = Tween(begin: begin, end: end);
-      final curvedAnimation = CurvedAnimation(
-        parent: animation,
-        curve: curve,
-      );
-
-      return SlideTransition(
-        position: tween.animate(curvedAnimation),
-        child: child,
-      );
-    },
-  );
-}
-
 class DefaultLayout extends StatelessWidget {
   const DefaultLayout({super.key});
 
@@ -51,17 +29,8 @@ class DefaultLayout extends StatelessWidget {
         key: navigatorKey,
         initialRoute: "/",
         onGenerateRoute: (settings) {
-          late Widget page;
-          switch (settings.name) {
-            case '/stock':
-              page = const Stock();
-              break;
-            case '/':
-            default:
-              page = const Home();
-          }
-
-          return _createRoute(page);
+          Widget page = _getCurrentPage(settings.name!);
+          return _createRoute(page, settings: settings);
           // return MaterialPageRoute(
           //   builder: (context) {
           //     return SizedBox(
@@ -80,4 +49,42 @@ class DefaultLayout extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget _getCurrentPage(String? routeName) {
+  switch (routeName) {
+    case '/stock':
+      return const Stock();
+    case '/':
+    default:
+      return const Home();
+  }
+}
+
+Route _createRoute(Widget page, {required RouteSettings settings}) {
+  return PageRouteBuilder(
+    settings: settings,
+    pageBuilder: (context, animation, secondaryAnimation) {
+      var tween = Tween(begin: 1.0, end: 0.0);
+      return page;
+    },
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(-0.4, 0.0);
+      const end = Offset.zero;
+
+      final tween = Tween(begin: begin, end: end);
+      final curvedAnimation = CurvedAnimation(
+        parent: animation,
+        curve: Curves.ease,
+      );
+
+      return SlideTransition(
+        position: tween.animate(curvedAnimation),
+        child: FadeTransition(
+          opacity: animation,
+          child: child,
+        ),
+      );
+    },
+  );
 }
