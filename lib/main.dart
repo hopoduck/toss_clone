@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         fontFamily: "Pretendard",
+        fontFamilyFallback: const ["NotoColorEmoji"],
       ),
       home: const DefaultLayout(),
       // {
